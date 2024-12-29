@@ -3,7 +3,9 @@ import FreeSimpleGUI as Sg
 
 layout = [[Sg.Text("Enter new to-do")],
           [Sg.InputText(tooltip="Enter todo", key='todo'), Sg.Button("Add"),],
-          [Sg.Listbox(values=fuctiones.get_todos(),key='todos',enable_events= True,size=[45,6]),Sg.Button('Edit')]]
+          [Sg.Listbox(values=fuctiones.get_todos(),key='todos',enable_events= True,size=[45,6])
+              ,Sg.Button('Edit'),Sg.Button("Complete")],
+          [Sg.Button("Exit")]]
 
 window = Sg.Window("TO-DO APP", layout, font=('Helvetica', 14))
 
@@ -30,6 +32,17 @@ while True:
            todos[index] = new_todo
            fuctiones.write_todos(todos)
            window['todos'].update(values=todos)
+
+        case "Complete":
+            todo_remove = values['todos'][0]
+            todos = fuctiones.get_todos()
+            todos.remove(todo_remove)
+            fuctiones.write_todos(todos)
+            window['todos'].update(values=todos)
+            window['todo'].update(value='')
+
+        case "Exit":
+            break
 
         case 'todos':
             window['todo'].update(value=values['todos'][0])
