@@ -1,9 +1,14 @@
 import fuctiones
 import FreeSimpleGUI as Sg
 import time
+import os
+
+# Create the file if it doesn't exist
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", 'w') as file:
+        pass
 
 Sg.theme('DarkBlue12')
-
 
 layout = [[Sg.Text('', key='clock')],
           [Sg.Text("Enter new to-do")],
